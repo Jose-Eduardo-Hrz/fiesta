@@ -1,0 +1,15 @@
+node_modules
+/build
+/.svelte-kit
+/package
+.DS_Store
+Thumbs.db
+
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Datos del evento (fotos, videos y base de datos)
+/archivos
+/data
