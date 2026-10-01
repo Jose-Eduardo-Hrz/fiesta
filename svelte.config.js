@@ -8,6 +8,10 @@ const config = {
 		// adapter-node: servidor Node propio, necesario para recibir archivos
 		// grandes en streaming y escribirlos en disco.
 		adapter: adapter({ out: 'build', precompress: true }),
+		// El sitio se publica bajo este prefijo (p. ej. https://dominio/pagina_temporal).
+		paths: {
+			base: '/pagina_temporal'
+		},
 		// La comprobación CSRF propia de SvelteKit compara la cabecera Origin, que
 		// algunos túneles y proxies (p. ej. VS Code Dev Tunnels) reescriben. La
 		// reemplazamos por una basada en Sec-Fetch-Site en src/hooks.server.ts.

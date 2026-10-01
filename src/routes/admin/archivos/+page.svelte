@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import Breadcrumbs from '$lib/components/admin/Breadcrumbs.svelte';
 	import DownloadLink from '$lib/components/admin/DownloadLink.svelte';
 	import MediaGrid from '$lib/components/admin/MediaGrid.svelte';
@@ -17,7 +18,7 @@
 		if (filter !== 'todos') params.set('tipo', filter);
 		if (page > 1) params.set('pagina', String(page));
 		const qs = params.toString();
-		return `/admin/archivos${qs ? `?${qs}` : ''}`;
+		return `${base}/admin/archivos${qs ? `?${qs}` : ''}`;
 	}
 </script>
 
@@ -25,7 +26,7 @@
 	<title>Todos los archivos · Panel</title>
 </svelte:head>
 
-<Breadcrumbs items={[{ label: 'Resumen', href: '/admin' }, { label: 'Todos los archivos' }]} />
+<Breadcrumbs items={[{ label: 'Resumen', href: `${base}/admin` }, { label: 'Todos los archivos' }]} />
 
 <div class="page-head">
 	<div>
@@ -33,7 +34,7 @@
 		<p>{data.total} {data.total === 1 ? 'archivo' : 'archivos'}, del más reciente al más antiguo.</p>
 	</div>
 	{#if data.total > 0}
-		<DownloadLink href="/api/admin/download" label="Descargar todo (.zip)" variant="primary" />
+		<DownloadLink href="{base}/api/admin/download" label="Descargar todo (.zip)" variant="primary" />
 	{/if}
 </div>
 

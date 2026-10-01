@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { beforeNavigate } from '$app/navigation';
@@ -21,7 +22,7 @@
 
 	onMount(() => {
 		guest = loadGuest();
-		if (!guest) goto('/', { replaceState: true });
+		if (!guest) goto(`${base}/`, { replaceState: true });
 	});
 
 	onDestroy(() => {
@@ -65,7 +66,7 @@
 		await releaseWakeLock();
 		if (summary) {
 			const params = new URLSearchParams({ fotos: String(summary.images), videos: String(summary.videos) });
-			goto(`/success?${params}`, { replaceState: true });
+			goto(`${base}/success?${params}`, { replaceState: true });
 		} else {
 			document.getElementById('upload-status')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 		}
@@ -94,7 +95,7 @@
 				<Icon name="table" size={16} />
 				<span>{guest.name} · Mesa {guest.table}</span>
 				{#if !queue.isBusy}
-					<a href="/">Cambiar</a>
+					<a href="{base}/">Cambiar</a>
 				{/if}
 			</p>
 		</div>

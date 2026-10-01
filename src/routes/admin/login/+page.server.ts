@@ -1,3 +1,4 @@
+import { base } from '$app/paths';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { checkCredentials, createSession, isAdminConfigured } from '$lib/server/auth';
@@ -10,7 +11,7 @@ function safeNext(value: string | null): string {
 }
 
 export const load: PageServerLoad = ({ locals, url }) => {
-	if (locals.admin) redirect(303, safeNext(url.searchParams.get('next')));
+	if (locals.admin) redirect(303, base + safeNext(url.searchParams.get('next')));
 	return {
 		configured: isAdminConfigured(),
 		expired: url.searchParams.has('next')
@@ -45,6 +46,6 @@ export const actions: Actions = {
 
 		loginLimiter.reset(ip);
 		createSession(cookies, username.trim(), url.protocol === 'https:');
-		redirect(303, safeNext(url.searchParams.get('next')));
+		redirect(303, base + safeNext(url.searchParams.get('next')));
 	}
 };

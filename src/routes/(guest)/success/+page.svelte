@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { EVENT } from '$lib/config';
 	import { countLabel } from '$lib/utils/format';
@@ -52,7 +53,7 @@
 				<p class="names">{EVENT.dadShort}, {EVENT.momShort} y {EVENT.babyName}</p>
 			</div>
 
-			<a class="again" href="/upload">
+			<a class="again" href="{base}/upload">
 				<Icon name="plus" size={20} stroke={2.5} />
 				Compartir más recuerdos
 			</a>

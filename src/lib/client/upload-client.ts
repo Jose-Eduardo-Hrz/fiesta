@@ -1,3 +1,4 @@
+import { base } from '$app/paths';
 /**
  * Cliente de subida del navegador.
  *
@@ -62,12 +63,12 @@ async function postJson<T>(url: string, body: unknown, headers: Record<string, s
 }
 
 export function createSubmission(name: string, table: number): Promise<CreateSubmissionResponse> {
-	return postJson<CreateSubmissionResponse>('/api/submissions', { name, table });
+	return postJson<CreateSubmissionResponse>(`${base}/api/submissions`, { name, table });
 }
 
 export function completeSubmission(submissionId: string, uploadToken: string): Promise<CompleteSubmissionResponse> {
 	return postJson<CompleteSubmissionResponse>(
-		`/api/submissions/${submissionId}/complete`,
+		`${base}/api/submissions/${submissionId}/complete`,
 		{},
 		{ 'X-Upload-Token': uploadToken }
 	);
@@ -87,7 +88,7 @@ export function uploadFile(opts: UploadFileOptions): Promise<UploadFileResponse>
 
 	return new Promise((resolve, reject) => {
 		const xhr = new XMLHttpRequest();
-		xhr.open('PUT', `/api/submissions/${submissionId}/files`);
+		xhr.open('PUT', `${base}/api/submissions/${submissionId}/files`);
 		xhr.setRequestHeader('X-Upload-Token', uploadToken);
 		xhr.setRequestHeader('X-Client-File-Id', clientFileId);
 		xhr.setRequestHeader('X-File-Name', encodeURIComponent(file.name));

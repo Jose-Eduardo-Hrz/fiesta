@@ -1,5 +1,6 @@
 <!-- Visor a pantalla completa: foto o video, información del archivo y descarga. -->
 <script lang="ts">
+	import { base } from '$app/paths';
 	import type { AdminFile } from '$lib/types';
 	import { formatBytes, formatDateTime } from '$lib/utils/format';
 	import Icon from '../Icon.svelte';
@@ -53,11 +54,11 @@
 								<p>Descárgalo para verlo.</p>
 							</div>
 						{:else}
-							<img src="/api/admin/files/{file.id}" alt={file.originalName} onerror={() => (imageFailed = true)} />
+							<img src="{base}/api/admin/files/{file.id}" alt={file.originalName} onerror={() => (imageFailed = true)} />
 						{/if}
 					{:else}
 						<!-- svelte-ignore a11y_media_has_caption -->
-						<video src="/api/admin/files/{file.id}" controls autoplay playsinline preload="metadata"></video>
+						<video src="{base}/api/admin/files/{file.id}" controls autoplay playsinline preload="metadata"></video>
 					{/if}
 				{/key}
 
@@ -81,9 +82,9 @@
 				<h2 title={file.storedName}>{file.storedName}</h2>
 				<dl>
 					<dt>Invitado</dt>
-					<dd><a href="/admin/mesa/{file.tableNumber}/{file.guestSlug}">{file.guestName}</a></dd>
+					<dd><a href="{base}/admin/mesa/{file.tableNumber}/{file.guestSlug}">{file.guestName}</a></dd>
 					<dt>Mesa</dt>
-					<dd><a href="/admin/mesa/{file.tableNumber}">Mesa {file.tableNumber}</a></dd>
+					<dd><a href="{base}/admin/mesa/{file.tableNumber}">Mesa {file.tableNumber}</a></dd>
 					<dt>Tipo</dt>
 					<dd>{file.kind === 'image' ? 'Foto' : 'Video'} · {file.mimeType}</dd>
 					<dt>Tamaño</dt>
@@ -95,7 +96,7 @@
 					<dt>Ruta</dt>
 					<dd class="mono">archivos/{file.storageKey}</dd>
 				</dl>
-				<DownloadLink href="/api/admin/files/{file.id}?download=1" label="Descargar archivo" variant="primary" />
+				<DownloadLink href="{base}/api/admin/files/{file.id}?download=1" label="Descargar archivo" variant="primary" />
 			</aside>
 		</div>
 	{/if}

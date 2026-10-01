@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { EVENT } from '$lib/config';
 	import Icon from '$lib/components/Icon.svelte';
@@ -7,20 +8,20 @@
 	let { data, children } = $props();
 
 	const nav: { href: string; label: string; icon: IconName }[] = [
-		{ href: '/admin', label: 'Resumen', icon: 'grid' },
-		{ href: '/admin/archivos', label: 'Todos los archivos', icon: 'photo' }
+		{ href: `${base}/admin`, label: 'Resumen', icon: 'grid' },
+		{ href: `${base}/admin/archivos`, label: 'Todos los archivos', icon: 'photo' }
 	];
 
 	function isActive(href: string): boolean {
 		const path = page.url.pathname;
-		return href === '/admin' ? path === '/admin' || path.startsWith('/admin/mesa') : path.startsWith(href);
+		return href === `${base}/admin` ? path === href || path.startsWith(`${base}/admin/mesa`) : path.startsWith(href);
 	}
 </script>
 
 <div class="admin">
 	<header class="topbar">
 		<div class="topbar-inner">
-			<a class="brand" href="/admin">
+			<a class="brand" href="{base}/admin">
 				<span class="logo" aria-hidden="true">🧸</span>
 				<span class="brand-text">
 					<strong>Panel del anfitrión</strong>
@@ -37,7 +38,7 @@
 				{/each}
 			</nav>
 
-			<form method="POST" action="/admin/logout" class="logout">
+			<form method="POST" action="{base}/admin/logout" class="logout">
 				<span class="user"><Icon name="user" size={16} /> {data.admin?.username}</span>
 				<button type="submit" title="Cerrar sesión">
 					<Icon name="logout" size={18} />

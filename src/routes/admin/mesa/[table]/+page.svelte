@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { countLabel, formatBytes, formatDateTime } from '$lib/utils/format';
 	import Breadcrumbs from '$lib/components/admin/Breadcrumbs.svelte';
 	import DownloadLink from '$lib/components/admin/DownloadLink.svelte';
@@ -19,20 +20,20 @@
 	<title>Mesa {data.tableNumber} · Panel</title>
 </svelte:head>
 
-<Breadcrumbs items={[{ label: 'Resumen', href: '/admin' }, { label: `Mesa ${data.tableNumber}` }]} />
+<Breadcrumbs items={[{ label: 'Resumen', href: `${base}/admin` }, { label: `Mesa ${data.tableNumber}` }]} />
 
 <div class="page-head">
 	<div>
 		<h1>Mesa {data.tableNumber}</h1>
 		<p>{data.guests.length} {data.guests.length === 1 ? 'invitado' : 'invitados'} · {countLabel(totals.images, totals.videos)} · {formatBytes(totals.bytes)}</p>
 	</div>
-	<DownloadLink href="/api/admin/download?mesa={data.tableNumber}" label="Descargar mesa (.zip)" variant="primary" />
+	<DownloadLink href="{base}/api/admin/download?mesa={data.tableNumber}" label="Descargar mesa (.zip)" variant="primary" />
 </div>
 
 <ul class="guests">
 	{#each data.guests as g (g.guestSlug)}
 		<li>
-			<a href="/admin/mesa/{data.tableNumber}/{g.guestSlug}" class="guest-link">
+			<a href="{base}/admin/mesa/{data.tableNumber}/{g.guestSlug}" class="guest-link">
 				<span class="avatar" aria-hidden="true">{g.guestName.charAt(0).toUpperCase()}</span>
 				<span class="info">
 					<strong>{g.guestName}</strong>
@@ -42,7 +43,7 @@
 				<Icon name="next" size={18} />
 			</a>
 			<DownloadLink
-				href="/api/admin/download?mesa={data.tableNumber}&invitado={g.guestSlug}"
+				href="{base}/api/admin/download?mesa={data.tableNumber}&invitado={g.guestSlug}"
 				label="Descargar archivos de {g.guestName}"
 				variant="icon"
 			/>

@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import Bear from '$lib/components/decor/Bear.svelte';
 
-	const isAdmin = $derived(page.url.pathname.startsWith('/admin'));
+	const isAdmin = $derived(page.url.pathname.startsWith(`${base}/admin`));
 </script>
 
 <svelte:head>
@@ -13,7 +14,7 @@
 	<Bear fur="#b9a5ef" furLight="#efe9ff" symbol="cloud" size={150} />
 	<h1>{page.status === 404 ? '¡Ups! Esta página se escondió' : '¡Ups! Algo salió mal'}</h1>
 	<p>{page.error?.message ?? 'Intenta de nuevo en un momento.'}</p>
-	<a href={isAdmin ? '/admin' : '/'}>{isAdmin ? 'Volver al panel' : 'Volver al inicio'}</a>
+	<a href={isAdmin ? `${base}/admin` : `${base}/`}>{isAdmin ? 'Volver al panel' : 'Volver al inicio'}</a>
 </div>
 
 <style>

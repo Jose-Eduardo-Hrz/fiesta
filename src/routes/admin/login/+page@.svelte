@@ -1,5 +1,6 @@
 <!-- "@" reinicia el layout: el login no usa el marco del panel. -->
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { EVENT } from '$lib/config';
 	import Bear from '$lib/components/decor/Bear.svelte';
@@ -70,7 +71,7 @@
 			</button>
 		</form>
 
-		<a class="back" href="/">← Volver a la página de invitados</a>
+		<a class="back" href="{base}/">← Volver a la página de invitados</a>
 	</div>
 </div>
 

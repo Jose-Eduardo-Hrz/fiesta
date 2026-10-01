@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { EVENT } from '$lib/config';
@@ -20,7 +21,7 @@
 
 	function handleSubmit(guest: GuestInput) {
 		saveGuest(guest);
-		goto('/upload');
+		goto(`${base}/upload`);
 	}
 
 	const steps = [

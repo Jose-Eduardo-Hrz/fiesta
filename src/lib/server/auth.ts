@@ -11,6 +11,7 @@ import type { Cookies } from '@sveltejs/kit';
 import { createHash } from 'node:crypto';
 import { getAdminCredentials } from './env';
 import { safeEqual, sign, verifySignature } from './crypto';
+import { base } from '$app/paths';
 
 export const SESSION_COOKIE = 'bs_admin_session';
 const SESSION_TTL_SECONDS = 12 * 60 * 60; // 12 horas
@@ -50,7 +51,7 @@ export function createSession(cookies: Cookies, username: string, secure: boolea
 	const token = `${encoded}.${sign(sessionContext(creds.password), encoded)}`;
 
 	cookies.set(SESSION_COOKIE, token, {
-		path: '/',
+		path: base || '/',
 		httpOnly: true,
 		sameSite: 'strict',
 		secure,
@@ -59,7 +60,7 @@ export function createSession(cookies: Cookies, username: string, secure: boolea
 }
 
 export function destroySession(cookies: Cookies): void {
-	cookies.delete(SESSION_COOKIE, { path: '/' });
+	cookies.delete(SESSION_COOKIE, { path: base || '/' });
 }
 
 export function readSession(cookies: Cookies): { username: string } | null {

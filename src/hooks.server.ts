@@ -1,4 +1,5 @@
 import { redirect, type Handle, type HandleServerError } from '@sveltejs/kit';
+import { base } from '$app/paths';
 import { readSession } from '$lib/server/auth';
 import { apiError } from '$lib/server/http';
 
@@ -23,7 +24,9 @@ function isCrossSiteRequest(request: Request, url: URL): boolean {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const { pathname } = event.url;
+	// Ruta sin el prefijo `base` (p. ej. /pagina_temporal) para comparar con las rutas de la app.
+	const fullPath = event.url.pathname;
+	const pathname = fullPath.startsWith(base) ? fullPath.slice(base.length) || '/' : fullPath;
 	event.locals.admin = readSession(event.cookies);
 
 	if (isCrossSiteRequest(event.request, event.url)) {
@@ -50,7 +53,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		if (isAdminApi) return apiError(401, 'Tu sesión expiró. Vuelve a iniciar sesión.');
 		if (isAdminPage) {
 			const next = encodeURIComponent(pathname + event.url.search);
-			redirect(303, `/admin/login?next=${next}`);
+			redirect(303, `${base}/admin/login?next=${next}`);
 		}
 	}
 

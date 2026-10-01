@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { countLabel, formatBytes } from '$lib/utils/format';
 	import Breadcrumbs from '$lib/components/admin/Breadcrumbs.svelte';
 	import DownloadLink from '$lib/components/admin/DownloadLink.svelte';
@@ -18,8 +19,8 @@
 
 <Breadcrumbs
 	items={[
-		{ label: 'Resumen', href: '/admin' },
-		{ label: `Mesa ${data.tableNumber}`, href: `/admin/mesa/${data.tableNumber}` },
+		{ label: 'Resumen', href: `${base}/admin` },
+		{ label: `Mesa ${data.tableNumber}`, href: `${base}/admin/mesa/${data.tableNumber}` },
 		{ label: data.guestName }
 	]}
 />
@@ -30,7 +31,7 @@
 		<p>Mesa {data.tableNumber} · {countLabel(images, videos)} · {formatBytes(bytes)}</p>
 	</div>
 	<DownloadLink
-		href="/api/admin/download?mesa={data.tableNumber}&invitado={data.guestSlug}"
+		href="{base}/api/admin/download?mesa={data.tableNumber}&invitado={data.guestSlug}"
 		label="Descargar todo de {data.guestName.split(' ')[0]} (.zip)"
 		variant="primary"
 	/>

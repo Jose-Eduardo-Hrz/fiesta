@@ -4,6 +4,7 @@
   Si no hay foto configurada se muestra una ilustración.
 -->
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { EVENT } from '$lib/config';
 	import Bear from './decor/Bear.svelte';
 	import Pascual from './decor/Pascual.svelte';
@@ -12,7 +13,7 @@
 <figure class="polaroid">
 	<div class="frame">
 		{#if EVENT.heroPhoto}
-			<img src={EVENT.heroPhoto} alt={EVENT.heroPhotoAlt} loading="lazy" decoding="async" />
+			<img src={base + EVENT.heroPhoto} alt={EVENT.heroPhotoAlt} loading="lazy" decoding="async" />
 		{:else}
 			<div class="illustration">
 				<div class="moon" aria-hidden="true"></div>

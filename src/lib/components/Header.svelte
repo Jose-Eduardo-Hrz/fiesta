@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { EVENT } from '$lib/config';
 	import Bear from './decor/Bear.svelte';
 	import Rainbow from './decor/Rainbow.svelte';
@@ -40,7 +41,7 @@
 	</header>
 {:else}
 	<header class="compact">
-		<a href="/" class="compact-link" aria-label="Volver al inicio">
+		<a href="{base}/" class="compact-link" aria-label="Volver al inicio">
 			<Bear fur="#f6b9cf" furLight="#fde8f0" symbol="heart" size={46} animate="none" />
 			<span>
 				<small>Baby Shower de</small>

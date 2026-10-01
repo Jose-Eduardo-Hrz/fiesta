@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import type { AdminFile } from '$lib/types';
 	import { formatBytes, formatDateTime } from '$lib/utils/format';
 	import Icon from '../Icon.svelte';
@@ -24,14 +25,14 @@
 				<button class="thumb" type="button" onclick={() => (openIndex = i)} aria-label="Ver {file.storedName}">
 					{#if file.kind === 'image' && !failed[file.id]}
 						<img
-							src="/api/admin/files/{file.id}"
+							src="{base}/api/admin/files/{file.id}"
 							alt=""
 							loading="lazy"
 							decoding="async"
 							onerror={() => (failed[file.id] = true)}
 						/>
 					{:else if file.kind === 'video'}
-						<video src="/api/admin/files/{file.id}#t=0.5" preload="metadata" muted playsinline tabindex="-1"></video>
+						<video src="{base}/api/admin/files/{file.id}#t=0.5" preload="metadata" muted playsinline tabindex="-1"></video>
 						<span class="play"><Icon name="play" size={20} /></span>
 					{:else}
 						<span class="fallback"><Icon name="photo" size={28} /><small>{file.storedName.split('.').pop()?.toUpperCase()}</small></span>
@@ -46,7 +47,7 @@
 						</span>
 						<span class="sub">{formatDateTime(file.uploadedAt)}</span>
 					</div>
-					<DownloadLink href="/api/admin/files/{file.id}?download=1" label="Descargar {file.storedName}" variant="icon" />
+					<DownloadLink href="{base}/api/admin/files/{file.id}?download=1" label="Descargar {file.storedName}" variant="icon" />
 				</div>
 			</li>
 		{/each}

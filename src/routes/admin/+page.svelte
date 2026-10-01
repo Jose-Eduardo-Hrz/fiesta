@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { EVENT } from '$lib/config';
 	import { countLabel, formatBytes, formatDateTime, plural } from '$lib/utils/format';
 	import StatCard from '$lib/components/admin/StatCard.svelte';
@@ -20,7 +21,7 @@
 		<p>Todos los recuerdos que han compartido los invitados.</p>
 	</div>
 	{#if data.stats.images + data.stats.videos > 0}
-		<DownloadLink href="/api/admin/download" label="Descargar todo (.zip)" variant="primary" />
+		<DownloadLink href="{base}/api/admin/download" label="Descargar todo (.zip)" variant="primary" />
 	{/if}
 </div>
 
@@ -40,7 +41,7 @@
 		<ul class="tables">
 			{#each data.tables as t (t.tableNumber)}
 				<li>
-					<a class="table-link" href="/admin/mesa/{t.tableNumber}">
+					<a class="table-link" href="{base}/admin/mesa/{t.tableNumber}">
 						<span class="table-num">
 							<small>Mesa</small>
 							{t.tableNumber}
@@ -52,7 +53,7 @@
 						</span>
 						<Icon name="next" size={18} />
 					</a>
-					<DownloadLink href="/api/admin/download?mesa={t.tableNumber}" label="Descargar mesa {t.tableNumber}" variant="icon" />
+					<DownloadLink href="{base}/api/admin/download?mesa={t.tableNumber}" label="Descargar mesa {t.tableNumber}" variant="icon" />
 				</li>
 			{/each}
 		</ul>
@@ -63,7 +64,7 @@
 	<section class="block">
 		<div class="block-head">
 			<h2>Recién llegados</h2>
-			<a href="/admin/archivos">Ver todos →</a>
+			<a href="{base}/admin/archivos">Ver todos →</a>
 		</div>
 		<MediaGrid files={data.recent} />
 	</section>
